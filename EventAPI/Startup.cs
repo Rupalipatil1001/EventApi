@@ -124,17 +124,21 @@ namespace EventAPI
             //});
 
             app.UseCors("Others");
-            InitializeDatabase(app);
-            app.UseAuthentication();
 
             app.UseSwagger();
-            if(env.IsDevelopment())
+
+            if (env.IsDevelopment())
             {
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Event API");
                 });
             }
+
+            InitializeDatabase(app);
+
+            app.UseAuthentication();
+
             app.UseMvc();
         }
 
@@ -166,6 +170,8 @@ namespace EventAPI
                     Speaker = "Rupali",
                     RegistrationUrl = "https://events.microsoft.com/3224"
                 });
+
+                db.SaveChanges();
             }
         }
     }
